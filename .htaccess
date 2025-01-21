@@ -1,26 +1,3 @@
-# <VirtualHost *:8080>
-#     DocumentRoot /var/www/mvc_poo/app/public
-#     ServerName localhost
-
-#     <Directory /var/www/mvc_poo/app/public>
-#         AllowOverride All
-#         Require all granted
-#     </Directory>
-
-#     RewriteEngine On
-
-#     # Si le fichier ou répertoire demandé n'existe pas, redirige vers index.php
-#     RewriteCond %{REQUEST_FILENAME} !-f
-#     RewriteCond %{REQUEST_FILENAME} !-d
-#     RewriteRule ^(.*)$ /mvc_poo/app/public/index.php?route=$1 [QSA,L]
-
-
-#     # Logs (optionnel)
-#     ErrorLog ${APACHE_LOG_DIR}/error.log
-#     CustomLog ${APACHE_LOG_DIR}/access.log combined
-# </VirtualHost>
-# ---------------------------------------------------------------------------
-
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
@@ -28,15 +5,7 @@ RewriteCond %{HTTP_HOST} ^localhost:8080$
 RewriteCond %{REQUEST_URI} !mvc_poo/app/public/
 RewriteRule (.*) /mvc_poo/app/public/$1 [L]
 
-# DirectoryIndex index.php /mvc_poo/app/public/
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /mvc_poo/index.php?route=$1 [QSA,L]
-
-
-# RewriteCond %{REQUEST_URI} mvc_poo/!(/$|\.) 
-# RewriteRule ^(.*)$ mvc_poo/app/public/?route=$1 [R=301,L]
-
-
-# ---------------------------------------------------------------------------
+</IfModule>

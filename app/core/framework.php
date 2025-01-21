@@ -5,8 +5,10 @@ namespace MVC_POO\Core;
 require ROOT_PATH. "/core/autoloader.php";
 
 use Exception;
-use MVC_POO\app\models\userModel;
 use MVC_POO\Core\autoloader;
+use MVC_POO\app\models\userModel;
+use MVC_POO\app\controller\homeController;
+
 
 class framework {
 
@@ -35,7 +37,7 @@ class framework {
      * Retourne un nom de fichier php correspondant à un contrôleur
      * en fonction d'une route et d'une table de routage 
      */
-    public function getController(string $route, array $routeMap): string{
+    public function getController(string $route, array $routeMap)/*: string*/{
         $route = str_replace('app/public', '', $route);
 
         // La route est-elle référencée
