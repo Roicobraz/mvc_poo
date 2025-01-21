@@ -32,10 +32,6 @@ class framework {
     }
 
     /**
-     * @param string $route
-     * @param array<string,string> $routeMap
-     * @return string
-     * 
      * Retourne un nom de fichier php correspondant à un contrôleur
      * en fonction d'une route et d'une table de routage 
      */
@@ -61,7 +57,6 @@ class framework {
         if(! file_exists(CONTROLLER_PATH . $controller)){
             return "notFoundController.php";
         }
-
 
         return $controller;
     }
