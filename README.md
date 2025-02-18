@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > V0.1 -
-> 06/008/2024 -
+> 06/08/2024 -
 > Roicobraz
 >
 > Dépendances :
