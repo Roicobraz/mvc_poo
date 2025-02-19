@@ -1,11 +1,29 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
+RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^localhost:8080$
-RewriteCond %{REQUEST_URI} !mvc_poo/app/public/
-RewriteRule (.*) /mvc_poo/app/public/$1 [L]
+RewriteCond %{REQUEST_URI} !mvc_poo/public/
+RewriteRule (.*) /mvc_poo/public/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /mvc_poo/index.php?route=$1 [QSA,L]
+
+ErrorDocument 404 http://localhost:8080/mvc_poo/error404
+</IfModule>
+
+<IfModule mod_headers.c>
+Header set Content-Security-Policy "script-src http://localhost:8080/mvc_poo/rsc/js/, 'none'"
+Header set Content-Security-Policy "img-src http://localhost:8080/mvc_poo/rsc/img/"
+Header set Content-Security-Policy "style-src http://localhost:8080/mvc_poo/rsc/css/" 
+Header set Content-Security-Policy "font-src http://localhost:8080/mvc_poo/rsc/font/"
+Header set Content-Security-Policy "object-src 'none'"
+Header set Content-Security-Policy "base-uri 'self'"
+
+Header set Content-Security-Policy "frame-ancestors 'none'"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Permissions-Policy "accelerometer=(), geolocation=('self'), fullscreen=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=('self')" 
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header set X-Content-Type-Options "nosniff" 
 </IfModule>
