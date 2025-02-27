@@ -11,13 +11,16 @@ define("VIEW_PATH", ROOT_PATH."/src/views/");
 // define("MODEL_PATH", ROOT_PATH."/models/");
 
 // Appel des assets
-require_once("../src/assets/function_custom.php");
+define("ASSETS_PATH", ROOT_PATH."/src/assets/");
+require_once("../src/assets/assets.php");
 
 // Inclusion du framework
 require ROOT_PATH. "/src/core/framework.php";
 use mvc_poo\Core\framework;
 $controller = new framework();
 
+
+// routage
 if(filter_input(INPUT_GET, "route") == null)
 {  $route = "/accueil"; }
 else 

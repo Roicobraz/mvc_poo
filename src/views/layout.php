@@ -19,9 +19,9 @@
     </main>
 	
 	<footer>
-	 	<?= slink(array("link" => "politique-de-confidentialite", "content" => "Politique de confidentialit&eacute;"));	?>	 
+        <a href="<?= URL?>/politique-de-confidentialite">Politique de confidentialit&eacute;</a>
 		&nbsp;-&nbsp;
-		<?= slink(array("link" => "mentions-legales", "content" => "Mentions l&eacute;gales"));	?>
+        <a href="<?= URL?>/mentions-legales">Mentions l&eacute;gales</a>
 	</footer>
     <?= $js_files ?>
 </body>
