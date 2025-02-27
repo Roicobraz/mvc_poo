@@ -25,13 +25,22 @@ Pour Ajouter une page, il faut:
 
 
 ## Ajout de script
-Il est possible d'ajouter un script js ou css par page, via `css_files` et `js_files`. \
+Il est possible d'ajouter un script js ou CSS par page, via `css_files` et `js_files`.  
 Il est également possible d'ajouter des script pour toutes les pages via les méthodes `script_css` et `script_js` de la classe *pagesController*.
 
-Les scripts css et js sont doivent être leur dossiers respectifs dans le dossier `\public`.
+Les scripts CSS et js sont doivent être leur dossiers respectifs dans le dossier `/public`.
 
 ## Ajout d'assets
-Développement en cours
+Pour ajouter des assets, il faut les mettre dans le dossier `src/assets/`.  
+Si votre asset contient du CSS et/ou du Javascript, il faut les mettre dans les dossiers assets des dossiers `/public/css` et `/public/js`.
+
+Les assets sont ajouté automatiquement au site, vous pouvez toutefois désactivé à votre demande des assets.  
+Pour cela, ajoutez le nom de du fichier dans le tableau **disabled**.  
+
+⚠ Ne pas supprimer les éléments déjà présent dans le tableau au dessus du commentaire.
+
+Si vous utilisez une certaines nomenclature de fichiers pour vos assets, n'hésitez pas à modifier aux lignes *24* et *26*.  
+Le nom de fichier par défaut il est de `index.php` 
 
 ## Gestion des erreurs
 Développement en cours

@@ -6,14 +6,14 @@
  * les fichiers css et js doivent être dans les dossiers css et js dans le dossier public
  */
 
-$array = [
+$disabled = [
     '.', '..', 'assets.php'
 // Ajoutez les assets à désactiver
 ];
 
     foreach(scandir(ASSETS_PATH) as $file )
     {
-        if(!in_array($file, $array))
+        if(!in_array($file, $disabled))
         {
             if(is_dir(ASSETS_PATH . $file))
             {
