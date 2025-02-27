@@ -2,6 +2,8 @@
 
 namespace mvc_poo\Core;
 
+use function PHPSTORM_META\type;
+
 class pagesController {
     public bool $nav_active = true;
 
@@ -17,16 +19,23 @@ class pagesController {
     /**
      * Désignation du fichier Vue de la page
      */
-    public function setTemplate(string $action): string {
+    public function setTemplate(string $action): string|false {
         $file = VIEW_PATH . $action . '.php';
-        if(file_exists($file))
+        try{     
+            if(file_exists($file))
+            {
+                $this->fichier = $file; 
+            }
+            else {    
+                $this->fichier = VIEW_PATH . 'not-found.php';
+                throw new \Exception("Template introuvable");
+            }
+        }        
+        catch (\Exception $e)
         {
-            $this->fichier = $file; 
-            return($this->fichier);
+            $GLOBALS['error']->addError($e);
         }
-        else {
-            throw new \Exception("Fichier '$file' introuvable");
-        }
+        return($this->fichier);
     }
 
     /**
@@ -34,6 +43,7 @@ class pagesController {
      */
     public function generer(array $donnees): false|string {
         // Génération de la partie spécifique de la vue
+        gettype($this->fichier);
         $contenu = $this->genererFichier($this->fichier, $donnees);
         // Génération du gabarit commun utilisant la partie spécifique
         $vue = $this->genererFichier(VIEW_PATH . "layout.php",
@@ -53,27 +63,16 @@ class pagesController {
     /**
      * Génère un fichier vue et renvoie le résultat produit
      */ 
-    private function genererFichier(string $fichier, array $donnees): false|string {
-        try{
-            if (file_exists($fichier)) {
-                // Rend les éléments du tableau $donnees accessibles dans la vue
-                extract($donnees);
-                // Démarrage de la temporisation de sortie
-                ob_start();
-                // Inclut le fichier vue
-                // Son résultat est placé dans le tampon de sortie
-                require $fichier;
-                // Arrêt de la temporisation et renvoi du tampon de sortie
-                return ob_get_clean();
-            }
-            else {
-                throw new \Exception("Fichier '$fichier' introuvable");
-            }
-        }
-        catch (\Exception $e)
-        {
-            $GLOBALS['error']->addError($e);
-        }
+    private function genererFichier(string $fichier, array $donnees): string {
+        // Rend les éléments du tableau $donnees accessibles dans la vue
+        extract($donnees);
+        // Démarrage de la temporisation de sortie
+        ob_start();
+        // Inclut le fichier vue
+        // Son résultat est placé dans le tampon de sortie
+        require $fichier;
+        // Arrêt de la temporisation et renvoi du tampon de sortie
+        return ob_get_clean();
     }
 
     /**

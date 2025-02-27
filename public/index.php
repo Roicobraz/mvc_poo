@@ -32,5 +32,5 @@ $routeMap = require CONFIG_PATH . "routes.php";
 
 $controller->getController($route, $routeMap);
 
-print_r($GLOBALS['error']->errors);
+if(!empty($GLOBALS['error']->errors)){print_r($GLOBALS['error']->errors);}
 ?>
