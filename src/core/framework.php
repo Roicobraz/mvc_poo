@@ -3,6 +3,8 @@
 namespace mvc_poo\Core;
 
 require ROOT_PATH. "/src/core/autoloader.php";
+
+use Exception;
 use mvc_poo\Core\autoloader;
 
 class framework {
@@ -20,19 +22,27 @@ class framework {
         $route = str_replace('public', '', $route);
 
         // La route est-elle référencée
-        if(!array_key_exists($route, $routeMap)) {            
-            $controller = "notFoundController.php";
-        }
-        else
-        {
-            // récupération du controler en fonction de la route
-            $controller = $routeMap[$route];
+        try{
+            if(!array_key_exists($route, $routeMap)) { 
+                $controller = "notFoundController.php";
+                throw new \Exception('Route non trouvé.');          
+            }
+            else
+            {
+                // récupération du controler en fonction de la route
+                $controller = $routeMap[$route];
+                
+                // Le controler existe-t-il ?
+                if(! file_exists(CONTROLLER_PATH . $controller))
+                {
+                    $controller = "notFoundController.php";
+                    throw new \Exception('Controlleur incorrect.');
+                }
+            }
+        } catch (\Exception $e){
+            $GLOBALS['error']->addError($e);
         }
 
-        // Le controler existe-t-il ?
-        if(! file_exists(CONTROLLER_PATH . $controller)) {
-            $controller = "notFoundController.php";
-        }
 
         require CONTROLLER_PATH . $controller;
 

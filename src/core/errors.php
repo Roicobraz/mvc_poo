@@ -2,16 +2,23 @@
 
 namespace mvc_poo\Core;
 
+use Exception;
+
 class errors {
-    private array $errors;
+    public array $errors = [];
 
-    public function __construct()
+    /**
+     * Ajoute un tableau qui resence le fichier la ligne et le message de l'erreur
+     */
+    public function addError(Exception $error): void
     {
-        
-    }
+        $test =
+        [
+            "file" => $error->getFile(),
+            "line" => $error->getLine(),
+            "message" => $error->getMessage()
+        ];
 
-    public function addErrors()
-    {
-
+        array_push($this->errors, $test);
     }
 }

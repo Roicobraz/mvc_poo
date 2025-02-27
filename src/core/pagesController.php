@@ -54,19 +54,25 @@ class pagesController {
      * Génère un fichier vue et renvoie le résultat produit
      */ 
     private function genererFichier(string $fichier, array $donnees): false|string {
-        if (file_exists($fichier)) {
-            // Rend les éléments du tableau $donnees accessibles dans la vue
-            extract($donnees);
-            // Démarrage de la temporisation de sortie
-            ob_start();
-            // Inclut le fichier vue
-            // Son résultat est placé dans le tampon de sortie
-            require $fichier;
-            // Arrêt de la temporisation et renvoi du tampon de sortie
-            return ob_get_clean();
+        try{
+            if (file_exists($fichier)) {
+                // Rend les éléments du tableau $donnees accessibles dans la vue
+                extract($donnees);
+                // Démarrage de la temporisation de sortie
+                ob_start();
+                // Inclut le fichier vue
+                // Son résultat est placé dans le tampon de sortie
+                require $fichier;
+                // Arrêt de la temporisation et renvoi du tampon de sortie
+                return ob_get_clean();
+            }
+            else {
+                throw new \Exception("Fichier '$fichier' introuvable");
+            }
         }
-        else {
-            throw new \Exception("Fichier '$fichier' introuvable");
+        catch (\Exception $e)
+        {
+            $GLOBALS['error']->addError($e);
         }
     }
 
@@ -79,28 +85,36 @@ class pagesController {
 		$script = '
             <link type=text/css rel="stylesheet" href="'.URL.'/css/style.css" crossorigin="anonymous">
         ';
-
-        // si add_css est vide
-        if(!empty($add_css) && $add_css[0] != "")
-        {
-            foreach($add_css as $css_link)
+        try{
+            // si add_css est vide
+            if(!empty($add_css) && $add_css[0] != "")
             {
-                $link = URL."/css/$css_link";
-
-                if(!str_contains($link, ".css"))
+                foreach($add_css as $css_link)
                 {
-                    $link .= ".css";
-                }
+                    $link = URL."/css/$css_link";
 
-                // ajout du lien si le fichier existe
-                if (file_exists($link))
-                {
-                    $script .= '<link type=text/css rel="stylesheet" href="'.$link.'" crossorigin="anonymous">';
-                }
+                    if(!str_contains($link, ".css"))
+                    {
+                        $link .= ".css";
+                    }
 
+                    // ajout du lien si le fichier existe
+                    if (file_exists($link))
+                    {
+                        $script .= '<link type=text/css rel="stylesheet" href="'.$link.'" crossorigin="anonymous">';
+                    }
+                    else 
+                    {
+                        throw new \Exception('Lien du fichier CSS inconnu.');
+                    }
+                }
             }
         }
-		
+        catch (\Exception $e)
+        {
+            $GLOBALS['error']->addError($e);
+        }
+
 		return($script);
 	}
 
@@ -113,31 +127,40 @@ class pagesController {
         $script = '
            <script src="'.URL.'/js/script.js" crossorigin="anonymous"></script>
         ';
+        try{
+            // si add_js est vide
+            if(!empty($add_js))
+            {
+                foreach($add_js as $js_link)
+                { 
+                    $type = "";
+                    if($js_link[0] != 'none')
+                    {
+                        $type = "type=".$js_link[0];
+                    }
 
-        // si add_js est vide
-        if(!empty($add_js))
-        {
-            foreach($add_js as $js_link)
-            { 
-                $type = "";
-                if($js_link[0] != 'none')
-                {
-                    $type = "type=".$js_link[0];
-                }
+                    $link = URL."/js/".$js_link[1];
 
-                $link = URL."/js/".$js_link[1];
+                    if(!str_contains($link, ".js"))
+                    {
+                        $link .= ".js";
+                    }
 
-                if(!str_contains($link, ".js"))
-                {
-                    $link .= ".js";
-                }
-
-                // ajout du lien si le fichier existe
-                if (file_exists($link))
-                {
-                    $script .= '<script '.$type.' src="'.$link.'" crossorigin="anonymous"></script>';
+                    // ajout du lien si le fichier existe
+                    if(file_exists($link))
+                    {
+                        $script .= '<script '.$type.' src="'.$link.'" crossorigin="anonymous"></script>';
+                    }
+                    else 
+                    {
+                        throw new \Exception('Lien du fichier Javascript inconnu.');
+                    }
                 }
             }
+        }
+        catch (\Exception $e)
+        {
+            $GLOBALS['error']->addError($e);
         }
 
         return($script);

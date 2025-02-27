@@ -19,6 +19,9 @@ require ROOT_PATH. "/src/core/framework.php";
 use mvc_poo\Core\framework;
 $controller = new framework();
 
+// Gestion des erreurs
+use mvc_poo\Core\errors;
+$GLOBALS['error'] = new errors;
 
 // routage
 if(filter_input(INPUT_GET, "route") == null)
@@ -28,4 +31,6 @@ else
 $routeMap = require CONFIG_PATH . "routes.php";
 
 $controller->getController($route, $routeMap);
+
+print_r($GLOBALS['error']->errors);
 ?>
