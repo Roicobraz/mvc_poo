@@ -2,8 +2,6 @@
 
 namespace mvc_poo\Core;
 
-use function PHPSTORM_META\type;
-
 class pagesController {
     public bool $nav_active = true;
 
@@ -81,30 +79,38 @@ class pagesController {
      */
 	public function script_css(array $add_css = array("")): string {
         // fichier css appelé pour toutes les pages
-		$script = '
-            <link type=text/css rel="stylesheet" href="'.URL.'/css/style.css" crossorigin="anonymous">
-        ';
+		$script = '';
+
+        array_push($add_css, 'style');
+        array_push($add_css, 'framework/error');
+
         try{
             // si add_css est vide
-            if(!empty($add_css) && $add_css[0] != "")
+            if(!empty($add_css))
             {
                 foreach($add_css as $css_link)
                 {
-                    $link = URL."/css/$css_link";
+                    if($css_link != "")
+                    {
+                        $link = URL."/css/$css_link";
+                        $path = ROOT_PATH."/public/css/$css_link";
 
-                    if(!str_contains($link, ".css"))
-                    {
-                        $link .= ".css";
-                    }
+                        if(!str_contains($link, ".css"))
+                        {
+                            $link .= ".css";
+                            $path .= ".css";
+                        }
+                        
 
-                    // ajout du lien si le fichier existe
-                    if (file_exists($link))
-                    {
-                        $script .= '<link type=text/css rel="stylesheet" href="'.$link.'" crossorigin="anonymous">';
-                    }
-                    else 
-                    {
-                        throw new \Exception('Lien du fichier CSS inconnu.');
+                        // ajout du lien si le fichier existe
+                        if (file_exists($path))
+                        {
+                            $script .= '<link type=text/css rel="stylesheet" href="'.$link.'" crossorigin="anonymous">';
+                        }
+                        else 
+                        {
+                            throw new \Exception('Lien du fichier CSS inconnu.');
+                        }
                     }
                 }
             }
@@ -123,30 +129,33 @@ class pagesController {
      */
 	public function script_js(array $add_js = array("", "")): string {		
         // fichier js appelé pour toutes les pages 
-        $script = '
-           <script src="'.URL.'/js/script.js" crossorigin="anonymous"></script>
-        ';
+        $script = '';
+        
+        array_push($add_js, array("text/javascript", "script"));
+
         try{
             // si add_js est vide
             if(!empty($add_js))
             {
                 foreach($add_js as $js_link)
                 { 
-                    $type = "";
-                    if($js_link[0] != 'none')
+                    $type = "type=text/javascript";
+                    $link = URL."/js/{$js_link[1]}";
+                    $path = ROOT_PATH."/public/js/{$js_link[1]}";
+
+                    if($js_link[0] != '')
                     {
                         $type = "type=".$js_link[0];
                     }
 
-                    $link = URL."/js/".$js_link[1];
-
                     if(!str_contains($link, ".js"))
                     {
                         $link .= ".js";
+                        $path .= ".js";
                     }
 
                     // ajout du lien si le fichier existe
-                    if(file_exists($link))
+                    if(file_exists($path))
                     {
                         $script .= '<script '.$type.' src="'.$link.'" crossorigin="anonymous"></script>';
                     }

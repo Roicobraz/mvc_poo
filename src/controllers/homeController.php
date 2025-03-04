@@ -10,7 +10,6 @@ class homeController extends pagesController {
     {
         $this->titre = "Accueil";
         $this->class_page = "home";
-        $this->css_files = array("");
  
         echo $this->generer(
             array(
