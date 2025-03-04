@@ -1,5 +1,5 @@
 <?php
-namespace MVC_POO\Core\ORM;
+namespace mvc_poo\Core\ORM;
 
 use PDO;
 

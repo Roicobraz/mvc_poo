@@ -1,6 +1,6 @@
 <?php
 
-namespace MVC_POO\Core\ORM;
+namespace mvc_poo\Core\ORM;
 
 class QueryBuilder {
     private static $allowedVerbs = ["SELECT", "DELETE", "UPDATE", "INSERT"];
