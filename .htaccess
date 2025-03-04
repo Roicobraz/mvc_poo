@@ -14,10 +14,10 @@ ErrorDocument 404 http://localhost:8080/mvc_poo/error404
 </IfModule>
 
 <IfModule mod_headers.c>
-Header set Content-Security-Policy "script-src http://localhost:8080/mvc_poo/rsc/js/, 'none'"
-Header set Content-Security-Policy "img-src http://localhost:8080/mvc_poo/rsc/img/"
-Header set Content-Security-Policy "style-src http://localhost:8080/mvc_poo/rsc/css/" 
-Header set Content-Security-Policy "font-src http://localhost:8080/mvc_poo/rsc/font/"
+Header set Content-Security-Policy "script-src http://localhost:8080/mvc_poo/js/, 'none'"
+Header set Content-Security-Policy "img-src http://localhost:8080/mvc_poo/img/"
+Header set Content-Security-Policy "style-src http://localhost:8080/mvc_poo/css/" 
+Header set Content-Security-Policy "font-src http://localhost:8080/mvc_poo/font/"
 Header set Content-Security-Policy "object-src 'none'"
 Header set Content-Security-Policy "base-uri 'self'"
 

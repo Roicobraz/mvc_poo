@@ -42,24 +42,6 @@ $routeMap = require CONFIG_PATH . "routes.php";
 
 $controller->getController($route, $routeMap);
 
-try {
-    throw new \Exception('test');
-} catch (\Exception $e) {
-    $GLOBALS['error']->addError($e);
-}
-
-try {
-    throw new \Exception('test2');
-} catch (\Exception $e) {
-    $GLOBALS['error']->addError($e);
-}
-
-try {
-    throw new \Exception('test3');
-} catch (\Exception $e) {
-    $GLOBALS['error']->addError($e);
-}
-
 // Affichage des erreurs
 if(IN_DEV) {
     echo($GLOBALS['error']->displayError());

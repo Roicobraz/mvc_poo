@@ -43,4 +43,5 @@ Si vous utilisez une certaines nomenclature de fichiers pour vos assets, n'hési
 Le nom de fichier par défaut il est de `index.php` 
 
 ## Gestion des erreurs
-Développement en cours
+Si le mode Dev est actif (constante **IN_DEV** index.php->L6) un suivi des erreurs s'ajoute par défaut en haut à droite.  
+Il peut cependant être déplacer sur la L34 en donnant l'angle voulu (`top-right`, `top-left`, `bot-right` ou `bot-left`).
