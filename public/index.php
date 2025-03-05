@@ -1,6 +1,6 @@
 <?php
 // définition du lien du site
-define("URL", 'http://localhost:8080/mvc_poo');
+define("URL", 'lien du site');
 
 // Définit que le site est en développement
 define("IN_DEV", true);

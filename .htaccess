@@ -2,22 +2,22 @@
 RewriteEngine On
 
 RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} ^localhost:8080$
-RewriteCond %{REQUEST_URI} !mvc_poo/public/
-RewriteRule (.*) /mvc_poo/public/$1 [L]
+RewriteCond %{HTTP_HOST} ^{nom_de_domaine}$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /mvc_poo/index.php?route=$1 [QSA,L]
+RewriteRule ^(.*)$ /index.php?route=$1 [QSA,L]
 
-ErrorDocument 404 http://localhost:8080/mvc_poo/error404
+ErrorDocument 404 {protocole}{nom_de_domaine}/error404
 </IfModule>
 
 <IfModule mod_headers.c>
-Header set Content-Security-Policy "script-src http://localhost:8080/mvc_poo/js/, 'none'"
-Header set Content-Security-Policy "img-src http://localhost:8080/mvc_poo/img/"
-Header set Content-Security-Policy "style-src http://localhost:8080/mvc_poo/css/" 
-Header set Content-Security-Policy "font-src http://localhost:8080/mvc_poo/font/"
+Header set Content-Security-Policy "script-src {protocole}{nom_de_domaine}/js/, 'none'"
+Header set Content-Security-Policy "img-src {protocole}{nom_de_domaine}/img/"
+Header set Content-Security-Policy "style-src {protocole}{nom_de_domaine}/css/" 
+Header set Content-Security-Policy "font-src {protocole}{nom_de_domaine}/font/"
 Header set Content-Security-Policy "object-src 'none'"
 Header set Content-Security-Policy "base-uri 'self'"
 
