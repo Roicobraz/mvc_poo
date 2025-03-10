@@ -1,6 +1,6 @@
 <?php
 // définition du lien du site
-define("URL", 'lien du site');
+define("URL", 'http://localhost:8080/mvc_poo');
 
 // Définit que le site est en développement
 define("IN_DEV", true);
@@ -43,7 +43,7 @@ $routeMap = require CONFIG_PATH . "routes.php";
 $controller->getController($route, $routeMap);
 
 // Affichage des erreurs
-if(IN_DEV) {
+if(IN_DEV && !empty($GLOBALS['error']->getArrayErrors())) {
     echo($GLOBALS['error']->displayError());
 }
 ?>

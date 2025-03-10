@@ -9,7 +9,7 @@ class mentionController extends pagesController {
     public function __construct()
     {
         $this->titre = "Mentions légales";
-        $this->class_global = "Legal_notices";
+        $this->class_page = "Legal_notices";
         
         echo $this->generer(
             array(

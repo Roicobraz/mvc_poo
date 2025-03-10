@@ -32,30 +32,36 @@ class framework {
                 // récupération du controler en fonction de la route
                 $controller = $routeMap[$route];
                 
-                // Le controler existe-t-il ?
+                // Le controller existe-t-il ?
                 if(! file_exists(CONTROLLER_PATH . $controller))
                 {
-                    $controller = "notFoundController.php";
-                    throw new \Exception('Controlleur incorrect.');
+                    $controller = "errorController.php";
+                    throw new \Exception('Controlleur inconnue.');
                 }
             }
         } catch (\Exception $e){
-            $GLOBALS['error']->addError($e);
+            $GLOBALS['critical_error'] = $e;
         }
-
-
         require CONTROLLER_PATH . $controller;
+        $this->checkClass($controller);
+    }
 
+    private function checkClass(string $controller)
+    {
         // Construction du nom complet de la classe avec son namespace
         $nomClasseComplet = "mvc_poo\\app\\Controller\\" . str_replace('.php', '', $controller);
-        
-        // Instanciation dynamique de la classe
-        if (class_exists($nomClasseComplet)) {
-            $objet = new $nomClasseComplet();
-            return $objet;
-        } else {
-            echo "La classe $nomClasseComplet n'existe pas.\n";
-            return null;
-        }    
+        try{
+            // Instanciation dynamique de la classe
+            if (class_exists($nomClasseComplet)) {
+                $objet = new $nomClasseComplet();
+                return $objet;
+            } else {
+                throw new \Exception("La classe $nomClasseComplet n'existe pas.");
+            }  
+        } catch (\Exception $e){ 
+            $GLOBALS['critical_error'] = $e;
+            require CONTROLLER_PATH . 'errorController.php';
+            $this->checkClass('errorController.php');
+        }
     }
 }

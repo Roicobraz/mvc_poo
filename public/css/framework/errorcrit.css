@@ -1,0 +1,24 @@
+body
+{
+    margin: 0;
+}
+
+.error .title
+{
+    background-color: rgb(196, 0, 0);
+    height: 25vh;
+    align-content: center;
+    color: #d5d5d5;
+}
+
+.error .title h1
+{
+    margin-top: 0;
+    padding-left: 5%;
+}
+
+.error .error_content
+{   
+    padding-left: 3%;
+    padding-top: 20px;
+}

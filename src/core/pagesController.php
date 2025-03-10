@@ -4,10 +4,10 @@ namespace mvc_poo\Core;
 
 class pagesController {
     public bool $nav_active = true;
+    public bool $footer_active = true;
 
     public string $titre = '';
     public string $class_page = '';
-    public string $class_global = '';
     
     public array $css_files = [];
     public array $js_files = [];
@@ -25,13 +25,13 @@ class pagesController {
                 $this->fichier = $file; 
             }
             else {    
-                $this->fichier = VIEW_PATH . 'not-found.php';
+                $this->fichier = VIEW_PATH . 'error.php';
                 throw new \Exception("Template introuvable");
             }
         }        
         catch (\Exception $e)
         {
-            $GLOBALS['error']->addError($e);
+            $GLOBALS['critical_error'] = $e;
         }
         return($this->fichier);
     }
@@ -48,11 +48,11 @@ class pagesController {
                 array(
                     'titre' => $this->titre, 
                     "class_page" => $this->class_page, 
-                    "class_global" => $this->class_global, 
                     'contentView' => $contenu,
                     'css_files' =>  $this->script_css($this->css_files),
                     'js_files' =>  $this->script_js($this->js_files),
-                    'nav_active' =>  $this->nav_active
+                    'nav_active' =>  $this->nav_active,
+                    'footer_active' =>  $this->footer_active
                 ));
         // Renvoi de la vue au navigateur
         return $vue;

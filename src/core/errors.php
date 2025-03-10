@@ -111,4 +111,9 @@ class errors {
 
         return($code_html);
     }
+
+    public function getArrayErrors(): array
+    {
+        return $this->arrayErrors;
+    }
 }

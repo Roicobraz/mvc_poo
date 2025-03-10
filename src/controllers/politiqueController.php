@@ -9,7 +9,7 @@ class politiqueController extends pagesController {
     public function __construct()
     {
         $this->titre = "Politique de confientialité";
-        $this->class_global = "Privacy_Policy";
+        $this->class_page = "Privacy_Policy";
         
         echo $this->generer(
             array(
