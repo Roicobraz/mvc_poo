@@ -1,6 +1,6 @@
 <?php
 // définition du lien du site
-define("URL", 'http://localhost:8080/mvc_poo');
+define("URL", 'http://localhost/dev_web/mvc_poo');
 
 // Définit que le site est en développement
 define("IN_DEV", true);
@@ -12,14 +12,6 @@ define("ASSETS_PATH", ROOT_PATH."/src/assets/");
 define("MODEL_PATH", ROOT_PATH."/src/models/");
 define("VIEW_PATH", ROOT_PATH."/src/views/");
 define("CONTROLLER_PATH", ROOT_PATH."/src/controllers/");
-
-// Vérification de la version de PHP
-if(phpversion() != '8.2.27' && IN_DEV)
-{
-    echo "<code>Attention votre version de PHP est ".phpversion().", ce framework a été développé en 8.2.27. <br>
-    Ce framework pourrait contenir des bugs voir ne pas fonctionner.<br>
-    Veuillez changer de version du langage ou attendre la vérification de compatibilté.</code>";
-}
 
 // Appel des assets
 require_once("../src/assets/assets.php");

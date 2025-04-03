@@ -1,7 +1,7 @@
 # MVC-POO
 
 > [!NOTE]
-> V0.2.2 -
+> V0.2.2.1 -
 > 19/02/2025 -
 > Roicobraz \
 > Dépendances : \

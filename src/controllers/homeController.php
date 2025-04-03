@@ -2,6 +2,8 @@
 
 namespace mvc_poo\app\Controller;
 
+use mvc_poo\Core\FG\FormField;
+use mvc_poo\Core\FG\Form;
 use mvc_poo\Core\pagesController;
 
 class homeController extends pagesController {
@@ -14,6 +16,7 @@ class homeController extends pagesController {
         echo $this->generer(
             array(
                 "contentView" => $this->setTemplate('home'),
+                'test' => (new Form())->connection()
         ));
     }
 }
